@@ -6,8 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ProductServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ProductServiceApplication.class, args);
-	}
-
+    /**
+     * The main entry point for the Product Service application.
+     * Initializes and starts the Spring Boot application.
+     *
+     * @param args command-line arguments
+     */
+    public static void main(final String[] args) {
+        SpringApplication.run(ProductServiceApplication.class, args);
+    }
 }
