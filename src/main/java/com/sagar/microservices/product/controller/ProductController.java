@@ -4,6 +4,7 @@ import com.sagar.microservices.product.dto.ProductRequestDto;
 import com.sagar.microservices.product.dto.ProductResponseDto;
 import com.sagar.microservices.product.service.ProductService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductResponseDto createProduct(
-            @RequestBody final ProductRequestDto productRequestDto) {
+            @Valid @RequestBody final ProductRequestDto productRequestDto) {
         return productService.createProduct(productRequestDto);
     }
 
@@ -48,7 +49,6 @@ public class ProductController {
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductResponseDto> getAllProducts() {
-
         return productService.getAllProducts();
     }
 

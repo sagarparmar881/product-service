@@ -2,6 +2,7 @@ package com.sagar.microservices.product.service;
 
 import com.sagar.microservices.product.dto.ProductRequestDto;
 import com.sagar.microservices.product.dto.ProductResponseDto;
+import com.sagar.microservices.product.exception.ProductNotFoundException;
 import com.sagar.microservices.product.mapper.ProductMapper;
 import com.sagar.microservices.product.model.Product;
 import com.sagar.microservices.product.repository.ProductRepository;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -42,8 +42,9 @@ public class ProductService {
      * Retrieves a products from the inner method.
      *
      * @return details of a product
+     * @param id if of a product
      */
-    public ProductResponseDto getProduct(String id) {
+    public ProductResponseDto getProduct(final String id) {
         var product = this.findProductById(id);
         return this.productMapper.productToDto(product);
     }
@@ -52,10 +53,11 @@ public class ProductService {
      * Retrieves a product from the repository by its id.
      *
      * @return details of a product by id
+     * @param id if of a product
      */
-    private Product findProductById(String id) {
+    private Product findProductById(final String id) {
         var product = productRepository.findById(id);
-        return product.orElse(null);
+        return product.orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     /**
@@ -65,7 +67,7 @@ public class ProductService {
      */
     public List<ProductResponseDto> getAllProducts() {
         var allProducts = this.findAllProducts();
-        return allProducts.stream().map(productMapper::productToDto).collect(Collectors.toList());
+        return allProducts.stream().map(productMapper::productToDto).toList();
     }
 
     /**
@@ -74,6 +76,10 @@ public class ProductService {
      * @return a list of all products
      */
     private List<Product> findAllProducts() {
-        return productRepository.findAll();
+        var products = productRepository.findAll();
+        if (products.isEmpty()) {
+            throw new ProductNotFoundException("No products found");
+        }
+        return products;
     }
 }
