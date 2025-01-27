@@ -14,6 +14,10 @@ public class ProductNotFoundException extends ProductServiceException {
      * @param input the identifier of the product that was not found
      */
     public ProductNotFoundException(final String input) {
-        super("Product not found with id " + input);
+        super("Product not found with id: " + input);
+    }
+
+    public ProductNotFoundException() {
+        super("No Products not found!");
     }
 }
