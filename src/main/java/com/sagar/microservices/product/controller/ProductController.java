@@ -1,7 +1,6 @@
 package com.sagar.microservices.product.controller;
 
 import com.sagar.microservices.product.dto.ProductRequestDto;
-import com.sagar.microservices.product.dto.ProductResponseDto;
 import com.sagar.microservices.product.enums.ResponseCode;
 import com.sagar.microservices.product.response.ApiResponse;
 import com.sagar.microservices.product.response.ResponseHandler;
@@ -13,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
