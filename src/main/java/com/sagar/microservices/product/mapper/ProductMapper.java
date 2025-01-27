@@ -10,10 +10,23 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
+    /** The singleton instance of the ProductMapper. */
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
+    /**
+     * Converts a Product entity to a ProductResponseDto.
+     *
+     * @param product The Product entity to be converted.
+     * @return The converted ProductResponseDto.
+     */
     ProductResponseDto productToDto(Product product);
 
+    /**
+     * Converts a ProductRequestDto to a Product entity.
+     *
+     * @param productRequestDto The ProductRequestDto to be converted.
+     * @return The converted Product entity.
+     */
     @Mapping(target = "id", ignore = true)
     Product dtoToProduct(ProductRequestDto productRequestDto);
 }

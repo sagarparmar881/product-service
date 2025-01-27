@@ -2,19 +2,17 @@ package com.sagar.microservices.product.controller;
 
 import com.sagar.microservices.product.dto.ProductRequestDto;
 import com.sagar.microservices.product.dto.ProductResponseDto;
+import com.sagar.microservices.product.enums.ResponseCode;
+import com.sagar.microservices.product.response.ApiResponse;
+import com.sagar.microservices.product.response.ResponseHandler;
 import com.sagar.microservices.product.service.ProductService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -61,5 +59,18 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public ProductResponseDto getProduct(@PathVariable final String id) {
         return productService.getProduct(id);
+    }
+
+    /**
+     * Deletes a product by id.
+     * @param id product id
+     * @return details of a deleted product
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteProduct(
+            @PathVariable final String id) {
+        return ResponseHandler.generateResponse(
+                ResponseCode.PRODUCT_DELETED,
+                productService.deleteProduct(id));
     }
 }

@@ -82,4 +82,20 @@ public class ProductService {
         }
         return products;
     }
+
+    /**
+     * Deletes a product based on id.
+     *
+     * @return a details of deleted product
+     * @param id if of a product
+     */
+    public ProductResponseDto deleteProduct(final String id) {
+        var product = this.findProductById(id);
+        this.deleteProductById(product.getId());
+        return this.productMapper.productToDto(product);
+    }
+
+    private void deleteProductById(final String id) {
+        productRepository.deleteById(id);
+    }
 }
