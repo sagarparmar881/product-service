@@ -78,7 +78,7 @@ public class ProductService {
     private List<Product> findAllProducts() {
         var products = productRepository.findAll();
         if (products.isEmpty()) {
-            throw new ProductNotFoundException("No products found");
+            throw new ProductNotFoundException();
         }
         return products;
     }

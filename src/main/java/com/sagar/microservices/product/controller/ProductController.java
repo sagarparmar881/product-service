@@ -34,9 +34,11 @@ public class ProductController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponseDto createProduct(
+    public ResponseEntity<ApiResponse> createProduct(
             @Valid @RequestBody final ProductRequestDto productRequestDto) {
-        return productService.createProduct(productRequestDto);
+        return ResponseHandler.generateResponse(
+                ResponseCode.PRODUCT_RETRIEVED,
+                productService.createProduct(productRequestDto));
     }
 
     /**
@@ -46,8 +48,10 @@ public class ProductController {
      */
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponseDto> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<ApiResponse> getAllProducts() {
+        return ResponseHandler.generateResponse(
+                ResponseCode.PRODUCT_RETRIEVED,
+                productService.getAllProducts());
     }
 
     /**
@@ -57,8 +61,10 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductResponseDto getProduct(@PathVariable final String id) {
-        return productService.getProduct(id);
+    public ResponseEntity<ApiResponse> getProduct(@PathVariable final String id) {
+        return ResponseHandler.generateResponse(
+                ResponseCode.PRODUCT_RETRIEVED,
+                productService.getProduct(id));
     }
 
     /**
