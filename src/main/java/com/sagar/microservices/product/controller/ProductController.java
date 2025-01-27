@@ -58,7 +58,8 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ApiResponse> getProduct(@PathVariable final String id) {
+    public ResponseEntity<ApiResponse> getProduct(
+            @PathVariable final String id) {
         return ResponseHandler.generateResponse(
                 ResponseCode.PRODUCT_RETRIEVED,
                 productService.getProduct(id));
