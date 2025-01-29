@@ -1,10 +1,12 @@
 package com.sagar.microservices.product.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public record ProductResponse(
+public record ProductResponseDto(
         String id,
         String name,
         String description,
-        BigDecimal price) {
+        BigDecimal price,
+        List<String> images) {
 }
