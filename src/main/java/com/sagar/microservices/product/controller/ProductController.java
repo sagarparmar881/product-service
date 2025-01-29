@@ -6,6 +6,8 @@ import com.sagar.microservices.product.response.ApiResponse;
 import com.sagar.microservices.product.response.ResponseHandler;
 import com.sagar.microservices.product.service.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/product")
+@Tag(name = "Products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -31,6 +34,10 @@ public class ProductController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(
+            summary = "Create a new product",
+            description = "This endpoint creates a new product using the provided product details."
+    )
     public ResponseEntity<ApiResponse> createProduct(
             @Valid @RequestBody final ProductRequestDto productRequestDto) {
         return ResponseHandler.generateResponse(
@@ -45,6 +52,10 @@ public class ProductController {
      */
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(
+            summary = "Get all products",
+            description = "This endpoint retrieves all products."
+    )
     public ResponseEntity<ApiResponse> getAllProducts() {
         return ResponseHandler.generateResponse(
                 ResponseCode.PRODUCT_RETRIEVED,
@@ -58,6 +69,10 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(
+            summary = "Get a product by ID",
+            description = "Retrieves the details of a specific product based on the provided ID."
+    )
     public ResponseEntity<ApiResponse> getProduct(
             @PathVariable final String id) {
         return ResponseHandler.generateResponse(
@@ -71,6 +86,10 @@ public class ProductController {
      * @return details of a deleted product
      */
     @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Delete a product by ID",
+            description = "Deletes a specific product based on the provided ID.x"
+    )
     public ResponseEntity<ApiResponse> deleteProduct(
             @PathVariable final String id) {
         return ResponseHandler.generateResponse(
