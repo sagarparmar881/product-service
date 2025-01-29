@@ -81,6 +81,25 @@ public class ProductController {
     }
 
     /**
+     * Partially updates a product by id.
+     * @param id product id
+     * @param productRequestDto the product details to update
+     * @return the updated product
+     */
+    @PatchMapping("/{id}")
+    @Operation(
+            summary = "Partially update a product by ID",
+            description = "Partially updates the details of a specific product based on the provided ID."
+    )
+    public ResponseEntity<ApiResponse> updateProduct(
+            @PathVariable final String id,
+            @Valid @RequestBody final ProductRequestDto productRequestDto) {
+        return ResponseHandler.generateResponse(
+                ResponseCode.PRODUCT_UPDATED,
+                productService.updateProduct(id, productRequestDto));
+    }
+
+    /**
      * Deletes a product by id.
      * @param id product id
      * @return details of a deleted product

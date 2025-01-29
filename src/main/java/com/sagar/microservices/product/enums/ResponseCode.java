@@ -10,7 +10,8 @@ public enum ResponseCode {
     PRODUCT_CREATED("Product created successfully", HttpStatus.CREATED),
     PRODUCT_RETRIEVED("Product retrieved successfully", HttpStatus.OK),
     PRODUCTS_RETRIEVED("All Products retrieved successfully", HttpStatus.OK),
-    PRODUCT_DELETED("Product deleted successfully", HttpStatus.ACCEPTED);
+    PRODUCT_DELETED("Product deleted successfully", HttpStatus.ACCEPTED),
+    PRODUCT_UPDATED("Product updated successfully", HttpStatus.OK);
 
     private final String message;
     private final HttpStatus httpStatus;

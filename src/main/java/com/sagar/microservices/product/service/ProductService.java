@@ -84,6 +84,24 @@ public class ProductService {
     }
 
     /**
+     * Partially updates a product based on its id.
+     *
+     * @param id                  the id of the product
+     * @param productRequestDto   the product details to update
+     * @return the updated product
+     */
+    public ProductResponseDto updateProduct(final String id, final ProductRequestDto productRequestDto) {
+        var product = this.findProductById(id);
+
+        // This will update the product entity with the DTO fields
+        productMapper.dtoToProduct(productRequestDto, product);
+
+        // Save and return the updated product
+        var updatedProduct = productRepository.save(product);
+        return this.productMapper.productToDto(updatedProduct);
+    }
+
+    /**
      * Deletes a product based on id.
      *
      * @return a details of deleted product
