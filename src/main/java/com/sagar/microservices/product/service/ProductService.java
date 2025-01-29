@@ -7,6 +7,9 @@ import com.sagar.microservices.product.mapper.ProductMapper;
 import com.sagar.microservices.product.model.Product;
 import com.sagar.microservices.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,9 +68,10 @@ public class ProductService {
      *
      * @return a list of all products dto
      */
-    public List<ProductResponseDto> getAllProducts() {
-        var allProducts = this.findAllProducts();
-        return allProducts.stream().map(productMapper::productToDto).toList();
+    public Page<ProductResponseDto> getAllProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productRepository.findAll(pageable);
+        return productPage.map(productMapper::productToDto);
     }
 
     /**
@@ -81,6 +85,24 @@ public class ProductService {
             throw new ProductNotFoundException();
         }
         return products;
+    }
+
+    /**
+     * Partially updates a product based on its id.
+     *
+     * @param id                  the id of the product
+     * @param productRequestDto   the product details to update
+     * @return the updated product
+     */
+    public ProductResponseDto updateProduct(final String id, final ProductRequestDto productRequestDto) {
+        var product = this.findProductById(id);
+
+        // This will update the product entity with the DTO fields
+        productMapper.dtoToProduct(productRequestDto, product);
+
+        // Save and return the updated product
+        var updatedProduct = productRepository.save(product);
+        return this.productMapper.productToDto(updatedProduct);
     }
 
     /**

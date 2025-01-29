@@ -5,6 +5,7 @@ import com.sagar.microservices.product.dto.ProductResponseDto;
 import com.sagar.microservices.product.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -29,4 +30,14 @@ public interface ProductMapper {
      */
     @Mapping(target = "id", ignore = true)
     Product dtoToProduct(ProductRequestDto productRequestDto);
+
+    /**
+     * Converts a ProductRequestDto to a Product entity.
+     *
+     * @param productRequestDto The ProductRequestDto to be merged.
+     * @param product The Product to be merged.
+     */
+    void dtoToProduct(ProductRequestDto productRequestDto,
+                      @MappingTarget Product product);
+
 }
