@@ -3,7 +3,7 @@ package com.sagar.microservices.product.controller;
 import com.sagar.microservices.product.dto.ProductRequestDto;
 import com.sagar.microservices.product.enums.ResponseCode;
 import com.sagar.microservices.product.response.ApiResponse;
-import com.sagar.microservices.product.response.ResponseHandler;
+import com.sagar.microservices.product.response.ProductServiceResponse;
 import com.sagar.microservices.product.service.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,14 +40,15 @@ public class ProductController {
     )
     public ResponseEntity<ApiResponse> createProduct(
             @Valid @RequestBody final ProductRequestDto productRequestDto) {
-        return ResponseHandler.generateResponse(
+        return ProductServiceResponse.build(
                 ResponseCode.PRODUCT_RETRIEVED,
                 productService.createProduct(productRequestDto));
     }
 
     /**
      * Retrieves all products.
-     *
+     * @param page the page number for pagination
+     * @param size the size of elements on page
      * @return a list of all products
      */
     @GetMapping("/all")
@@ -56,10 +57,13 @@ public class ProductController {
             summary = "Get all products",
             description = "This endpoint retrieves all products."
     )
-    public ResponseEntity<ApiResponse> getAllProducts() {
-        return ResponseHandler.generateResponse(
+    public ResponseEntity<ApiResponse> getAllProducts(
+            @RequestParam(defaultValue = "0") final int page,
+            @RequestParam(defaultValue = "10") final int size
+    ) {
+        return ProductServiceResponse.build(
                 ResponseCode.PRODUCT_RETRIEVED,
-                productService.getAllProducts());
+                productService.getAllProducts(page, size));
     }
 
     /**
@@ -75,7 +79,7 @@ public class ProductController {
     )
     public ResponseEntity<ApiResponse> getProduct(
             @PathVariable final String id) {
-        return ResponseHandler.generateResponse(
+        return ProductServiceResponse.build(
                 ResponseCode.PRODUCT_RETRIEVED,
                 productService.getProduct(id));
     }
@@ -94,7 +98,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> updateProduct(
             @PathVariable final String id,
             @Valid @RequestBody final ProductRequestDto productRequestDto) {
-        return ResponseHandler.generateResponse(
+        return ProductServiceResponse.build(
                 ResponseCode.PRODUCT_UPDATED,
                 productService.updateProduct(id, productRequestDto));
     }
@@ -111,7 +115,7 @@ public class ProductController {
     )
     public ResponseEntity<ApiResponse> deleteProduct(
             @PathVariable final String id) {
-        return ResponseHandler.generateResponse(
+        return ProductServiceResponse.build(
                 ResponseCode.PRODUCT_DELETED,
                 productService.deleteProduct(id));
     }

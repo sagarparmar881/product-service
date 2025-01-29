@@ -7,6 +7,9 @@ import com.sagar.microservices.product.mapper.ProductMapper;
 import com.sagar.microservices.product.model.Product;
 import com.sagar.microservices.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,9 +68,10 @@ public class ProductService {
      *
      * @return a list of all products dto
      */
-    public List<ProductResponseDto> getAllProducts() {
-        var allProducts = this.findAllProducts();
-        return allProducts.stream().map(productMapper::productToDto).toList();
+    public Page<ProductResponseDto> getAllProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productRepository.findAll(pageable);
+        return productPage.map(productMapper::productToDto);
     }
 
     /**
