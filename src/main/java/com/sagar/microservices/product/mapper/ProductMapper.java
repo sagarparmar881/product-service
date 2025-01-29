@@ -31,6 +31,13 @@ public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
     Product dtoToProduct(ProductRequestDto productRequestDto);
 
-    void dtoToProduct(ProductRequestDto productRequestDto, @MappingTarget Product product);
+    /**
+     * Converts a ProductRequestDto to a Product entity.
+     *
+     * @param productRequestDto The ProductRequestDto to be merged.
+     * @param product The Product to be merged.
+     */
+    void dtoToProduct(ProductRequestDto productRequestDto,
+                      @MappingTarget Product product);
 
 }
