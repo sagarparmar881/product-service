@@ -67,8 +67,11 @@ public class ProductService {
      * Retrieves a list of all products from the inner method.
      *
      * @return a list of all products dto
+     * @param page page of a product list
+     * @param size size of a product list
      */
-    public Page<ProductResponseDto> getAllProducts(int page, int size) {
+    public Page<ProductResponseDto> getAllProducts(
+            final int page, final int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = productRepository.findAll(pageable);
         return productPage.map(productMapper::productToDto);
@@ -94,7 +97,8 @@ public class ProductService {
      * @param productRequestDto   the product details to update
      * @return the updated product
      */
-    public ProductResponseDto updateProduct(final String id, final ProductRequestDto productRequestDto) {
+    public ProductResponseDto updateProduct(
+            final String id, final ProductRequestDto productRequestDto) {
         var product = this.findProductById(id);
 
         // This will update the product entity with the DTO fields

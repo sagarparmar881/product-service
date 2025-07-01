@@ -36,7 +36,8 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             summary = "Create a new product",
-            description = "This endpoint creates a new product using the provided product details."
+            description = "This endpoint creates a new product "
+                    + "using the provided product details."
     )
     public ResponseEntity<ApiResponse> createProduct(
             @Valid @RequestBody final ProductRequestDto productRequestDto) {
@@ -75,7 +76,8 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(
             summary = "Get a product by ID",
-            description = "Retrieves the details of a specific product based on the provided ID."
+            description = "Retrieves the details of a specific "
+                    + "product based on the provided ID."
     )
     public ResponseEntity<ApiResponse> getProduct(
             @PathVariable final String id) {
@@ -93,7 +95,8 @@ public class ProductController {
     @PatchMapping("/{id}")
     @Operation(
             summary = "Partially update a product by ID",
-            description = "Partially updates the details of a specific product based on the provided ID."
+            description = "Partially updates the details of a specific "
+                    + "product based on the provided ID."
     )
     public ResponseEntity<ApiResponse> updateProduct(
             @PathVariable final String id,
@@ -111,7 +114,8 @@ public class ProductController {
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Delete a product by ID",
-            description = "Deletes a specific product based on the provided ID.x"
+            description = "Deletes a specific product "
+                    + "based on the provided ID."
     )
     public ResponseEntity<ApiResponse> deleteProduct(
             @PathVariable final String id) {

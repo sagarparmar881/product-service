@@ -17,6 +17,9 @@ public class ProductNotFoundException extends ProductServiceException {
         super("Product not found with id: " + input);
     }
 
+    /**
+     * Exception thrown for no product found
+     */
     public ProductNotFoundException() {
         super("No Products not found!");
     }
