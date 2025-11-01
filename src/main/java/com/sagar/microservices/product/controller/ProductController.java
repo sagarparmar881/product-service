@@ -42,7 +42,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> createProduct(
             @Valid @RequestBody final ProductRequestDto productRequestDto) {
         return ProductServiceResponse.build(
-                ResponseCode.PRODUCT_RETRIEVED,
+                ResponseCode.PRODUCT_CREATED,
                 productService.createProduct(productRequestDto));
     }
 
