@@ -38,11 +38,6 @@ public class ProductService {
             final ProductRequestDto productRequestDto) {
         var productDto = this.productMapper.dtoToProduct(productRequestDto);
         var savedProduct = productRepository.save(productDto);
-        try{
-        Thread.sleep(10000); // Simulating a delay of 10 seconds}
-        } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-        }
         return this.productMapper.productToDto(savedProduct);
     }
 
