@@ -3,4 +3,4 @@ spring:
     name: product-service
   data:
     mongodb:
-      uri: mongodb+srv://saaagar881_db_user:K3tHOvPaKgliU0Iq@cluster0.kaqba5j.mongodb.net/product-service?retryWrites=true&w=majority
+      uri: ${MONGODB_URI}
